@@ -109,7 +109,7 @@ export const googleSignIn = asyncHandler(async (req, res) => {
 
     const result = await User.create({
         email,
-        userName,
+        name,
         googleId,
     }) ;
 
