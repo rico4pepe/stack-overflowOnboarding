@@ -7,8 +7,16 @@ AutoIncrement.mongoose
 const questionSchema = new mongoose.Schema({
     user:{type:mongoose.Schema.Types.ObjectId, 
         required:true, ref:'User'},
-    title:{type:String, required:false},
-    text:{type:String, required:true},  
+    title:{type:String, 
+        required:false
+    },
+    body:{type:String, 
+        required:true
+    },  
+    answers: {
+        type: mongoose.Schema.ObjectId,
+        ref: "Answer",
+      },
     votes: {type: Number, default: 0,} 
 },
     {

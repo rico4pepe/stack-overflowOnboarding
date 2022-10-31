@@ -12,6 +12,7 @@ import corsOption from "./config/corsOption.js";
 import connectDB from './config/connectDB.js'
 import mongoose from 'mongoose';
 import userRouter from "./routes/userRoutes.js"
+import questionRouter from './routes/questionRoutes.js'
 
 
 dotenv.config({ debug: true })
@@ -48,8 +49,11 @@ app.use('/', express.static('public'))
 
 
 app.use(prefix, userRouter); //http://localhost:5000/api/stackOverflow/allusers
+app.use(prefix, questionRouter); //http://localhost:5000/api/stackOverflow/askQuestion
+
 
 app.use('/', RootRouter)
+
 
 // app.get('/', (req, res)=> {
 //     res.send("Hello Express"); 
