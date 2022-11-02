@@ -7,7 +7,8 @@ import express from "express";
 import bcrypt from 'bcrypt';
 import asyncHandler from 'express-async-handler'
 import redis from 'redis'
-import util from 'util'
+import  {clearKey}  from '../redis-caching/cache.js'
+
 
 
 
@@ -36,7 +37,9 @@ client.on("error", (err) => {
 
 //View All Users
 export const getAllUsers = asyncHandler(async (req, res) => {
-        const users = await User.find().lean() 
+    
+
+        const users = await User.find().lean().cache 
         if(!users?.length){
             return res.status(400).json({message: 'No users found'})
         }
@@ -68,6 +71,7 @@ export const createNewUser = asyncHandler(async (req, res) => {
     if(result){
 
         const token = jwt.sign({email: result.email, id : result._id}, process.env.JSON_SECRET_KEY)
+        clearKey(User.collection.collectionName)
         res.status(201).json({result, token});
     }else{
         res.status(400).json({message: "invalid user data recieved"})

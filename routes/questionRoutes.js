@@ -5,3 +5,5 @@ import {askQuestion} from "../controllers/questionController.js";
 const router = express.Router();
 
 router.post("/askQuestion", askQuestion);
+
+export default router;
